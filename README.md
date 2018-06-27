@@ -12,4 +12,6 @@ Then run the app
 tns run android/ios //this will build then run the app
 ```
 # Develop
+You want to be in ```app/www/``` to change/edit the Map, it's an HTML Map in a webview Really!!
+please use your Mapbox token !!! 
 Let me know how it goes!
