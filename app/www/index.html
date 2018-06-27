@@ -15,22 +15,13 @@
   </head>
 
 <body >
-
+//THE MAP PAGE
 <div class="app-page " data-page="home">
  <div class="app-content ">
   <div id='map' ></div>
  </div>
 </div>
-
-<div class="app-page" data-page="locate">
-      <div class="app-topbar blue">
-        <div class="app-button left" data-back data-autotitle></div>
-        <div class="app-title">My Locations</div>
-         </div>
-      <div class="app-content">
-      </div>
-  </div>
-
+	//THE DETAIL PAGE
   <div class="app-page" data-page="detail">
   <div class="app-content   w3-card-8" >
     <div class="app-section w3-white">
@@ -59,16 +50,16 @@ var pulsingIcon = L.icon.pulse({iconSize:[20,20],color:'red'});
    
 var oWebViewInterface = window.nsWebViewInterface;
 oWebViewInterface.emit('status', 1);
-var latt=-15.786646854298212,langg=35.00870;
-var map = L.map('map').setView([latt, langg], 6);
+var latt=-15.786646854298212,langg=35.00870;  //Default Map center
+var map = L.map('map').setView([latt, langg], 6); //Declare the Map and setting up zoom level(6)
 var popup = L.popup();
-
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFydGlubXRhd2FsaSIsImEiOiJjajViaG9sYXkyYzZ0MnFvYTdhbnI2amZ2In0.FkidTFDcehYOZc_DPX-BGw', {
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=YOUR-MAPBOX-ACCESS_TOKEN-HERE', {
     maxZoom: 18,
     
     id: 'mapbox.streets' 
   }).addTo(map);
-map.flyTo([latt, langg], 14,'animate');
+	
+map.flyTo([latt, langg], 14,'animate'); //Map Centered here this is the initial view where the Map will fly too hence the Anaimation flag
 var littleton = L.marker([-15.80908, 35.01369] ).bindPopup('<div id="1" class="app-section" onclick="App.load(\'detail\',product[1])"><p class="w3-blue w3-container"><b>Stooge\'s Taxi</b></p></div>').openPopup(),
    denver    = L.marker([-15.81031, 35.01547] ).bindPopup('<div id="2" class="app-section" onclick="App.load(\'detail\',product[5])"><p class="w3-blue w3-container"><b>The Taxi </b></p></div>').openPopup(),
    aurora    = L.marker([-15.80897, 35.01647]).bindPopup('<div id="3" class="app-section" onclick="App.load(\'detail\',product[6])"><p class="w3-blue w3-container"><b>City Taxi </b></p></div>').openPopup(),
@@ -78,18 +69,18 @@ var littleton = L.marker([-15.80908, 35.01369] ).bindPopup('<div id="1" class="a
    Chez    = L.marker([-15.78763, 35.00416] ).bindPopup('<div id="7" class="app-section" onclick="App.load(\'detail\',product[3])"><p class="w3-blue w3-container">The Ride</p></div>').openPopup();
  var layer = L.layerGroup([ golden,Chez,btsports,btsport,littleton,denver,aurora]);
  layer.addTo(map);
- /*L.marker([latt, langg]).addTo(map)
+ /*L.marker([latt, langg]).addTo(map) //uncomment to show a popup where you are or when you tap you location Marker
      .bindPopup('you are near .<br> this place.')
      .openPopup();*/
  
      var DynaMarker = L.marker([latt,langg], {icon: pulsingIcon} )
    ;
    
-  oWebViewInterface.on('location', function (cor) {
+  oWebViewInterface.on('location', function (cor) {  // when {N} gelocation get your current location this runs
 
 DynaMarker.setLatLng([cor.latt, cor.lang]) .addTo(map);
 //App.load('locate');
-    map.flyTo([cor.latt, cor.lang], 14,'animate');
+    map.flyTo([cor.latt, cor.lang], 14,'animate'); // your current location will update and zoom to level 14
 });  
      
   
@@ -97,18 +88,18 @@ function onMapClick(e) {
   oWebViewInterface.emit('ack', e.latlng.toString());
 }
   
-  map.on('click', onMapClick);
+  map.on('click', onMapClick); //not used in this demo but you can inplement your own
  
 </script>
 
 <script>
 
    // var s=show('bars');
-
+//DETAIL PAGE TEMPLATE WHEN YOU CLICK THE MARKER POPUP!!
 App.controller('detail', function (page,product) {
   history.pushState('detail', null, '#detail');
 oWebViewInterface.emit('status', 1);
-  this.transition =  'glideoff-left';
+  this.transition =  'glideoff-left';  //Page transition to use
   $(page).find('.title').text(product.name);
   $(page).find('.content').html('<img src="../img/'+product.image+'" class="w3-round" style="width: 100%">'+
   '<div class="w3-container w3-blue "><span class="w3-large"><b>'+product.name+'</b></span>'+ '<br><div class=" w3-topbar"></div>'+
@@ -117,14 +108,14 @@ oWebViewInterface.emit('status', 1);
     detail();
   });
 });
-
+// THIS ARRAY could come from server
 var product=[{name:'Blessings Cab',image:'Nadia.jpg',details:'A clean Car, Sober Driver<br> Clean Driving record</br>',price:'K100',Queue:'2',rating:'***'},{name:'Stooge\'s Taxi',image:'Beetle bug.jpg',details:'For the best ride in town',price:'K500',Queue:'3',rating:'****'},{name:'Swift Taxi',image:'Defender.jpg',details:'We Have the best Seats, Lady Driver . Very Polite',price:'K15,000',Queue:'1',rating:'***'},{name:'The Ride',image:'tundra1.jpg',details:'Be smart, we have the smartes rides ',price:'K300',Queue:'3',rating:'***'},{name:'Juk\'s Ride',image:'Beetle.jpg',details:'the best We got u wont 4get!',price:'K180',Queue:'2',rating:'****'},{name:'The Taxi',image:'Tundra.jpg',details:'this  4x4 will take you places no vehicle has!,  good sound while you Ride and cheap!',price:'K200',Queue:'4',rating:'*****'},{name:'City Taxi',image:'lifted-tundra-.jpg',details:'this  4x4 will take you places no vehicle has!,  good sound while you Ride and cheap!',price:'K200',Queue:'4',rating:'***'}];
 
       App.controller('page2', function (page) {
         history.pushState('page2', null, '#locations');
       });
-
-      oWebViewInterface.on('check', function(eventData){
+       //CATCH IF USER IS ON MAP OR DETAIL PAGE so we close the app or go back to the MAP This is called in the index.js file
+      oWebViewInterface.on('check', function(eventData){ 
           var page=window.location.hash;
            console.log(page);
           if (page=="#home" || page=="" ) {
