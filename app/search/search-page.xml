@@ -1,0 +1,13 @@
+<Page
+    navigatedTo="onNavigatingTo"
+    navigatedFrom="navigatedFrom"
+    xmlns="http://www.nativescript.org/tns.xsd">
+    <ActionBar class="c-bg-aqua" >
+        <Label class="c-white" text="Taxi's Nearby" fontSize="20"></Label>
+    </ActionBar>
+  <GridLayout rows="*" >
+      <ContentView row="0" class="map">
+        <web-view id="webView"></web-view>
+      </ContentView>
+  </GridLayout>
+</Page>
