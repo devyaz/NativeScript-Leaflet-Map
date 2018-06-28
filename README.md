@@ -21,4 +21,21 @@ tns run android/ios //this will build then run the app
 # Develop
 You want to be in ```app/www/``` to change/edit the Map, it's an HTML Map in a webview Really!!
 please use your Mapbox token line 56 in ``app/www/index.html``!!! 
+  # API
+  ```
+  //Declare the Map and setting up zoom level(6)
+  var map = L.map('map').setView([latt, langg], 6); 
+  
+  //declare the popup
+  var popup = L.popup();
+  //Add the map tiles and map type(id)
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=YOUR-MAPBOX-ACCESS_TOKEN-HERE', {
+    maxZoom: 18,
+    id: 'mapbox.streets' 
+  }).addTo(map);
+  //Now Load the amp with an animation
+  map.flyTo([latt, langg], 14,'animate');
+  //Declare a Marker and bind a popup that will open the details page about this location
+var littleton = L.marker([-15.80908, 35.01369] ).bindPopup('<div id="1" class="app-section" onclick="App.load(\'detail\',product[1])"><p class="w3-blue w3-container"><b>Stooge\'s Taxi</b></p></div>').openPopup()
+  ```
 Let me know how it goes!
