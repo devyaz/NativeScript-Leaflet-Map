@@ -1,4 +1,4 @@
-const frameModule = require("ui/frame");
+const frameModule = require("@nativescript/core/ui/frame");
 const geolocation = require('nativescript-geolocation');
 const Accuracy = require("ui/enums");
 const model = require("./search-view-model");
