@@ -1,6 +1,6 @@
 const frameModule = require("@nativescript/core/ui/frame");
 const geolocation = require('nativescript-geolocation');
-const Accuracy = require("ui/enums");
+const Accuracy = require("@nativescript/core/ui/enums");
 const model = require("./search-view-model");
 var nativescript_webview_interface_1 = require("nativescript-webview-interface");
 var oLangWebViewInterface;
